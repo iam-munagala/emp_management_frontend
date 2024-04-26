@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { AppBar, Toolbar } from '@mui/material';
-
+import axios from 'axios';
 
 function Login() {
     const [username, setUsername] = useState('');
@@ -19,7 +19,7 @@ function Login() {
       }
   
       try {
-        const response = await fetch('https://circular-kizzie-vamsimunagala.koyeb.app/login', {
+        const response = await axios.get('https://circular-kizzie-vamsimunagala.koyeb.app/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username, password }),

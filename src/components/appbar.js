@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AppBar, Toolbar, Typography, Button, Box, IconButton, Menu, MenuItem, Avatar,styled } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const UserHeader = styled('div')({
   display: 'flex',
@@ -28,7 +29,7 @@ const CustomAppBar = ({ username }) => {
 
   const handleLogout = async () => {
     try {
-      const response = await fetch('https://circular-kizzie-vamsimunagala.koyeb.app/logout', {
+      const response = await axios.get('https://circular-kizzie-vamsimunagala.koyeb.app/logout', {
         method: 'POST',
         credentials: 'include', // Important for including cookies in the request
       });

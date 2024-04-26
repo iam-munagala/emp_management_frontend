@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CustomAppBar from './appbar'; // Ensure CustomAppBar is correctly imported
 import { Snackbar, Alert } from '@mui/material';
-
+import axios from 'axios';
 export default function AddEmployeeForm() {
     const navigate = useNavigate();
     const [employee, setEmployee] = useState({
@@ -45,7 +45,7 @@ export default function AddEmployeeForm() {
         // Example: Validate email format
         const checkEmailDuplicate = async (email) => {
             try {
-                const response = await fetch('https://circular-kizzie-vamsimunagala.koyeb.app/check-email', {
+                const response = await axios.get('https://circular-kizzie-vamsimunagala.koyeb.app/check-email', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ export default function AddEmployeeForm() {
         formData.append('image', employee.image);
 
         try {
-            const response = await fetch('https://circular-kizzie-vamsimunagala.koyeb.app/addemployees', {
+            const response = await axios.get('https://circular-kizzie-vamsimunagala.koyeb.app/addemployees', {
                 method: 'POST',
                 credentials: 'include',
                 body: formData,

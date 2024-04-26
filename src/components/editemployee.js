@@ -5,7 +5,7 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CustomAppBar from './appbar';
 import LoadingIndicator from './loading';
 import { Snackbar, Alert } from '@mui/material';
-
+import axios from 'axios';
 export default function EditEmployee() {
   const { employeeId } = useParams();
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export default function EditEmployee() {
   useEffect(() => {
     const fetchEmployeeDetails = async () => {
       try {
-        const response = await fetch(`https://circular-kizzie-vamsimunagala.koyeb.app/getinfo/${employeeId}`, { 
+        const response = await axios.get(`https://circular-kizzie-vamsimunagala.koyeb.app/getinfo/${employeeId}`, { 
             method : 'GET',
             credentials: 'include' });
         if (!response.ok) throw new Error('Failed to fetch employee details');
@@ -83,7 +83,7 @@ export default function EditEmployee() {
 
     const checkEmailDuplicate = async (email) => {
         try {
-            const response = await fetch(`https://circular-kizzie-vamsimunagala.koyeb.app/edit-check-email/${employeeId}`, {
+            const response = await axios.get(`https://circular-kizzie-vamsimunagala.koyeb.app/edit-check-email/${employeeId}`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

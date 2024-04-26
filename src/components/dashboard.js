@@ -3,6 +3,7 @@ import CustomAppBar from './appbar';
 import { Box, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import LoadingIndicator from './loading';
+import axios from 'axios';
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await fetch('https://circular-kizzie-vamsimunagala.koyeb.app/dashboard', {
+        const response = await axios.get('https://circular-kizzie-vamsimunagala.koyeb.app/dashboard', {
           method: 'GET',
           credentials: 'include', // Important for sending cookies
         });
