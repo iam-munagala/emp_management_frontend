@@ -12,7 +12,7 @@ function Dashboard() {
   useEffect(() => {
     const fetchUserDetails = async () => {
       try {
-        const response = await axios.get('https://circular-kizzie-vamsimunagala.koyeb.app/dashboard', {
+        const response = await fetch('https://circular-kizzie-vamsimunagala.koyeb.app/dashboard', {
           method: 'GET',
           credentials: 'include', // Important for sending cookies
         });

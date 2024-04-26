@@ -21,7 +21,7 @@ export default function EmployeeList() {
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await axios.get('https://circular-kizzie-vamsimunagala.koyeb.app/employeelist', {
+        const response = await fetch('https://circular-kizzie-vamsimunagala.koyeb.app/employeelist', {
           method: 'GET',
           credentials: 'include', // Important for sending cookies
         });
@@ -47,7 +47,7 @@ export default function EmployeeList() {
     if (window.confirm('Are you sure you want to delete this employee?')) {
       try {
         console.log(id);
-        const response = await axios.get(`https://circular-kizzie-vamsimunagala.koyeb.app/deleteemployee/${id}`, {
+        const response = await fetch(`https://circular-kizzie-vamsimunagala.koyeb.app/deleteemployee/${id}`, {
           method: 'DELETE',
           credentials: 'include',
         });
