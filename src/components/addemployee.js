@@ -5,7 +5,8 @@ import PhotoCamera from '@mui/icons-material/PhotoCamera';
 import CustomAppBar from './appbar'; // Ensure CustomAppBar is correctly imported
 import { Snackbar, Alert } from '@mui/material';
 import axios from 'axios';
-export default function AddEmployeeForm() {
+
+export default function AddEmployeeForm({ username }) {
     const navigate = useNavigate();
     const [employee, setEmployee] = useState({
         name: '',
@@ -38,7 +39,6 @@ export default function AddEmployeeForm() {
     };
 
     const handleSubmit = async (event) => {
-
         event.preventDefault();
         // Perform client-side validation here
 
@@ -104,7 +104,7 @@ export default function AddEmployeeForm() {
             setError('Failed to add employee. Please try again.');
           }
     };
-    const username = "gowthamkurella"
+
     return (
         <>
             <CustomAppBar username={username} />

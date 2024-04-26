@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, AppBar, Toolbar } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar } from '@mui/material';
 import axios from 'axios';
 
 function Login() {
@@ -19,14 +18,14 @@ function Login() {
       }
   
       try {
-        const response = await fetch('https://circular-kizzie-vamsimunagala.koyeb.app/login', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ username, password }),
-          credentials : 'include',
+        const response = await axios.post('https://circular-kizzie-vamsimunagala.koyeb.app/login', {
+          username,
+          password,
+        }, {
+          withCredentials: true, // Ensure cookies are sent with the request
         });
-        if (response.ok) {
-          const data = await response.json();
+        if (response.status === 200) {
+          const data = response.data;
           localStorage.setItem('user', data.user); // Store the username in local storage
           navigate('/dashboard'); // Navigate to the dashboard
         } else {

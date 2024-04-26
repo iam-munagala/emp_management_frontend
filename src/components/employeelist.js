@@ -9,8 +9,6 @@ import LoadingIndicator from './loading';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-
-
 export default function EmployeeList() {
   const [employees, setEmployees] = useState([]);
   const [userDetails, setUserDetails] = useState(null);
@@ -18,15 +16,14 @@ export default function EmployeeList() {
   const [searchTerm, setSearchTerm] = useState('');
   const [lastUpdate, setLastUpdate] = useState(Date.now());
   const navigate = useNavigate();
+
   useEffect(() => {
     const fetchEmployees = async () => {
       try {
-        const response = await fetch('https://circular-kizzie-vamsimunagala.koyeb.app/employeelist', {
-          method: 'GET',
-          credentials: 'include', // Important for sending cookies
+        const response = await axios.get('https://circular-kizzie-vamsimunagala.koyeb.app/employeelist', {
+          withCredentials: true, // Important for sending cookies
         });
-        if (!response.ok) throw new Error('Failed to fetch');
-        const data = await response.json();
+        const { data } = response;
         setUserDetails(data.user);
         setEmployees(data.employees.map((item, index) => ({
           ...item,
@@ -46,14 +43,9 @@ export default function EmployeeList() {
   const handleDelete = async (id) => {
     if (window.confirm('Are you sure you want to delete this employee?')) {
       try {
-        console.log(id);
-        const response = await fetch(`https://circular-kizzie-vamsimunagala.koyeb.app/deleteemployee/${id}`, {
-          method: 'DELETE',
-          credentials: 'include',
+        await axios.delete(`https://circular-kizzie-vamsimunagala.koyeb.app/deleteemployee/${id}`, {
+          withCredentials: true,
         });
-        if (!response.ok) throw new Error('Failed to delete');
-  
-        // Refresh the employees list after deletion
         const updatedEmployees = employees.filter((employee) => employee._id !== id);
         setEmployees(updatedEmployees);
       } catch (error) {
@@ -86,12 +78,12 @@ export default function EmployeeList() {
       renderCell: (params) => (
         <>
           <IconButton 
-          color="primary" 
-          aria-label="edit"
-          onClick={() => navigate(`/editemployee/${params.id}`)}
-        >
-          <EditIcon />
-        </IconButton>
+            color="primary" 
+            aria-label="edit"
+            onClick={() => navigate(`/editemployee/${params.id}`)}
+          >
+            <EditIcon />
+          </IconButton>
           <IconButton color="secondary" aria-label="delete" onClick={() => handleDelete(params.id)}>
             <DeleteIcon />
           </IconButton>
@@ -100,10 +92,6 @@ export default function EmployeeList() {
       sortable: false,
     },
   ];
-
-  useEffect(() => {
-    console.log(userDetails);
-  }, [userDetails]);
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
@@ -121,10 +109,10 @@ export default function EmployeeList() {
       )
     : employees;
 
-    if (isLoading) {
-      return <LoadingIndicator />;
-    }
-  
+  if (isLoading) {
+    return <LoadingIndicator />;
+  }
+
   return (
     <Box sx={{ pt: 12, px: 2 }}>
       <CustomAppBar username={userDetails.f_userName} />
@@ -132,9 +120,8 @@ export default function EmployeeList() {
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <TextField label="Search Employees" variant="outlined" onChange={handleSearch} />
         <Typography variant="subtitle1">
-    Total Employees: {employees.length}
-  </Typography>
-
+          Total Employees: {employees.length}
+        </Typography>
         <Button variant="contained" startIcon={<AddIcon />} onClick={() => navigate('/addemployee')}>Add Employee</Button>
       </Box>
       <div style={{ height: 400, width: '100%' }}>

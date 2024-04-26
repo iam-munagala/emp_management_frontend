@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AppBar, Toolbar, Typography, Button, Box, IconButton, Menu, MenuItem, Avatar,styled } from '@mui/material';
+import { AppBar, Toolbar, Typography, Button, Box, IconButton, Menu, MenuItem, Avatar, styled } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -7,18 +7,18 @@ const UserHeader = styled('div')({
   display: 'flex',
   alignItems: 'center',
   padding: '10px',
-  borderBottom: '1px solid rgba(0, 0, 0, 0.12)' // Light border for separation
+  borderBottom: '1px solid rgba(0, 0, 0, 0.12)', // Light border for separation
 });
 
 const UserInfo = styled('div')({
-  marginLeft: '10px'
+  marginLeft: '10px',
 });
 
 const CustomAppBar = ({ username }) => {
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
- 
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -33,7 +33,7 @@ const CustomAppBar = ({ username }) => {
         method: 'POST',
         credentials: 'include', // Important for including cookies in the request
       });
-  
+
       if (response.ok) {
         // Optionally reset any global state used for user data
         // Redirect the user to the login page or home page
